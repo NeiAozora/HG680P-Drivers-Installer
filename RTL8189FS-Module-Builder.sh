@@ -19,7 +19,7 @@ fi
 
 # Configure kernel
 cd $KERNEL_DIR
-
+cd scripts/kconfig
 aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
 aarch64-linux-gnu-gcc -c -o expr.o expr.c
 aarch64-linux-gnu-gcc -c -o conf.o conf.c
