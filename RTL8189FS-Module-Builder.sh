@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo Begin patching the dtb & u-boot file
+
+
 echo Installing necessary dependencies
 sudo apt-get update
 sudo apt-get install -y git build-essential gcc-aarch64-linux-gnu
