@@ -19,7 +19,7 @@ cp -r /usr/lib/modules/$(uname -r)/build /tmp/build-header
 
 echo Preparing header enviroments
 
-cd /tmp/header
+cd /tmp/build-header
 cd scripts/kconfig
 aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
 aarch64-linux-gnu-gcc -c -o expr.o expr.c
@@ -32,7 +32,7 @@ aarch64-linux-gnu-gcc -c -o menu.o menu.c
 
 cd ../..
 
-cd /tmp/header/scripts/basic
+cd /tmp/build-header/scripts/basic
 aarch64-linux-gnu-gcc -o fixdep fixdep.c
 cd ../..
 
