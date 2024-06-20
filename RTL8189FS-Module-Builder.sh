@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo Begin patching the dtb & u-boot file
+sudo cp meson-gxl-s905x-p212.dtb /boot/dtb/amlogic
 
 
 echo Installing necessary dependencies
@@ -39,6 +40,7 @@ cd scripts/mod
 
 aarch64-linux-gnu-gcc -c modpost.c -o modpost
 
+echo Begin compiling modules
 make -j4 ARCH=arm64 KSRC=/tmp/build-header
 
 # Build kernel and modules
