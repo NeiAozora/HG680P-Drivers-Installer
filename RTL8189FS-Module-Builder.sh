@@ -19,6 +19,21 @@ fi
 
 # Configure kernel
 cd $KERNEL_DIR
+
+cd scripts/kconfig/conf
+aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
+aarch64-linux-gnu-gcc -c -o expr.o expr.c
+aarch64-linux-gnu-gcc -c -o conf.o conf.c
+aarch64-linux-gnu-gcc -c -o symbol.o symbol.c
+aarch64-linux-gnu-gcc -c -o expr.o expr.c
+
+cd ../../..
+
+cd /tmp/linux-headers-6.1.52-ophub/scripts/basic
+aarch64-linux-gnu-gcc -o fixdep fixdep.c
+cd ../..
+
+
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- oldconfig
 
 # Build kernel and modules
