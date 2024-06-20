@@ -1,24 +1,21 @@
 #!/bin/bash
 
-# Install necessary dependencies
-#sudo apt-get update
-#sudo apt-get install -y git build-essential gcc-aarch64-linux-gnu
+echo Installing necessary dependencies
+sudo apt-get update
+sudo apt-get install -y git build-essential gcc-aarch64-linux-gnu
 
-# Clone the repository
+echo Begin cloning the repository
 git clone https://github.com/jwrdegoede/rtl8189ES_linux.git -b rtl8189fs
 #cd rtl8189ES_linux
 
-cp -r /usr/src/linux-headers-6.1.52-ophub /tmp/
-
+echo Begin copying the linux build-header
+mkdir /tmp/header
+cp -r /usr/lib/modules/$(uname -r)/build /tmp/build-header
 # Ensure kernel config file exists
-KERNEL_DIR="/tmp/linux-headers-6.1.52-ophub"
-if [ ! -f "$KERNEL_DIR/.config" ]; then
-    echo ".config file not found! Copying the current kernel config."
-    cp /boot/config-$(uname -r) $KERNEL_DIR/.config
-fi
 
-# Configure kernel
-cd $KERNEL_DIR
+echo Preparing header enviroments
+
+cd /tmp/header
 cd scripts/kconfig
 aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
 aarch64-linux-gnu-gcc -c -o expr.o expr.c
@@ -29,22 +26,23 @@ aarch64-linux-gnu-gcc -c -o util.o util.c
 aarch64-linux-gnu-gcc -c -o lexer.lex.o lexer.lex.c
 aarch64-linux-gnu-gcc -c -o menu.o menu.c
 
-cd ../../..
+cd ../..
 
-cd /tmp/linux-headers-6.1.52-ophub/scripts/basic
+cd /tmp/header/scripts/basic
 aarch64-linux-gnu-gcc -o fixdep fixdep.c
 cd ../..
 
+cd scripts/mod
 
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- oldconfig
+aarch64-linux-gnu-gcc -c modpost.c -o modpost
+
+make -j4 ARCH=arm64 KSRC=/tmp/build-header
 
 # Build kernel and modules
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc)
+sudo cp 8189fs.ko /usr/lib/modules/$(uname -r)/kernel/drivers/net/wireless/realtek/                                              
+sudo depmod -a                                          
+sudo modprobe 8189fs
 
-# Install module
-sudo make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=/tmp/modules_install
-
-# Clean up
 cd ../..
 rm -rf rtl8189ES_linux
 
