@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Install necessary dependencies
-sudo apt-get update
-sudo apt-get install -y git build-essential linux-headers-$(uname -r) gcc-aarch64-linux-gnu
+#sudo apt-get update
+#sudo apt-get install -y git build-essential gcc-aarch64-linux-gnu
 
 # Clone the repository
 git clone https://github.com/jwrdegoede/rtl8189ES_linux.git -b rtl8189fs
