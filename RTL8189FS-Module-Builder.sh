@@ -21,13 +21,20 @@ fi
 cd $KERNEL_DIR
 
 cd scripts/kconfig
-aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
-aarch64-linux-gnu-gcc -c -o expr.o expr.c
-aarch64-linux-gnu-gcc -c -o conf.o conf.c
-aarch64-linux-gnu-gcc -c -o symbol.o symbol.c
-aarch64-linux-gnu-gcc -c -o expr.o expr.c
-aarch64-linux-gnu-gcc -c -o util.o util.c
-
+for file in *.c; do
+    # Extract filename without extension
+    filename=$(basename -- "$file" .c)
+    
+    # Compile .c file to .o
+    aarch64-linux-gnu-gcc -c -o "$filename.o" "$file"
+    
+    # Check if compilation was successful
+    if [ $? -eq 0 ]; then
+        echo "Compiled $file to $filename.o successfully"
+    else
+        echo "Failed to compile $file"
+    fi
+done
 cd ../../..
 
 cd /tmp/linux-headers-6.1.52-ophub/scripts/basic
