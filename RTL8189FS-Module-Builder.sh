@@ -27,6 +27,7 @@ aarch64-linux-gnu-gcc -c -o symbol.o symbol.c
 aarch64-linux-gnu-gcc -c -o expr.o expr.c
 aarch64-linux-gnu-gcc -c -o util.o util.c
 aarch64-linux-gnu-gcc -c -o lexer.lex.o lexer.lex.c
+aarch64-linux-gnu-gcc -c -o menu.o menu.c
 
 cd ../../..
 
