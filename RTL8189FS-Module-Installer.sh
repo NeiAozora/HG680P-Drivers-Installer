@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo Begin patching the dtb & u-boot file
-sudo cp meson-gxl-s905x-p212.dtb /boot/dtb/amlogic
-
+sudo cp meson-gxl-s905x-p212.dtb /boot/dtb/amlogic/
+sudo cp u-boot-p212.bin /boot/
 
 echo Installing necessary dependencies
 sudo apt-get update
@@ -51,4 +51,4 @@ sudo modprobe 8189fs
 cd ../..
 rm -rf rtl8189ES_linux
 
-echo "Kernel module installation complete."
+echo "Kernel module installation complete.\nPlease reboot the system"
