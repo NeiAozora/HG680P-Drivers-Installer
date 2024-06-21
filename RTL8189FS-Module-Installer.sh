@@ -12,9 +12,8 @@ echo "Begin cloning the repository"
 git clone https://github.com/jwrdegoede/rtl8189ES_linux.git -b rtl8189fs
 
 echo "Begin copying the linux build-header"
-mkdir -p /tmp/build-header
-cp -r /usr/lib/modules/$(uname -r)/build /tmp/build-header
-
+cp -r /usr/lib/modules/$(uname -r)/build /tmp/
+mv /tmp/build /tmp/build-header
 echo "Preparing header environments"
 cd /tmp/build-header
 sudo chown -R $(whoami) .
