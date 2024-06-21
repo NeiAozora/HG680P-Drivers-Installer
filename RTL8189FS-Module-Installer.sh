@@ -16,7 +16,7 @@ cp -r /usr/lib/modules/$(uname -r)/build /tmp/
 mv /tmp/build /tmp/build-header
 echo "Preparing header environments"
 cd /tmp/build-header
-sudo chown -R $(whoami) .
+sudo chown -R $(whoami):$(whoami) .
 
 cd scripts/kconfig
 aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
