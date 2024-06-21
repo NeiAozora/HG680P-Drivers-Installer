@@ -38,7 +38,7 @@ aarch64-linux-gnu-gcc -c modpost.c -o modpost
 
 echo "Begin compiling modules"
 cd ~/HG680P-Drivers-Installer/rtl8189ES_linux
-sudo make -j4 ARCH=arm64 KSRC=/tmp/build-header
+make -j4 ARCH=arm64 KSRC=/tmp/build-header
 
 # Build kernel and modules
 sudo cp 8189fs.ko /usr/lib/modules/$(uname -r)/kernel/drivers/net/wireless/realtek/
