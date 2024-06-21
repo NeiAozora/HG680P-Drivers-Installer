@@ -1,5 +1,23 @@
 #!/bin/bash
 
+echo "This version of the installer has a driver with a known bug that creates two virtual network interfaces (wlan0 and wlan1) when the module is modprobed. However, there is a patch that makes NetworkManager ignore wlan1, ensuring smooth operation. Do you want to proceed? (Y/n)"
+
+read -p ">" answer
+
+case $answer in
+    [Yy]* ) 
+        echo "Proceeding with the installation..."
+        # Place your installation commands here
+        ;;
+    [Nn]* ) 
+        echo "Installation aborted."
+        exit 1
+        ;;
+    * ) 
+        echo "Please answer yes or no."
+        ;;
+esac
+
 echo "Begin patching the dtb & u-boot file"
 sudo cp meson-gxl-s905x-p212.dtb /boot/dtb/amlogic/
 sudo cp u-boot-p212.bin /boot/
@@ -53,7 +71,18 @@ make -j4 ARCH=arm64 KSRC=/tmp/build-header
 # Build kernel and modules
 sudo cp 8189fs.ko /usr/lib/modules/$(uname -r)/kernel/drivers/net/wireless/realtek/
 sudo depmod -a
+
+# Apply the NetworkManager patch to ignore wlan1
+echo "Applying NetworkManager patch to ignore wlan1"
+sudo bash -c 'cat > /etc/NetworkManager/conf.d/ignore-wlan1.conf <<EOF
+[keyfile]
+unmanaged-devices=interface-name:wlan1
+EOF'
+
+
 sudo modprobe 8189fs
+
+sudo systemctl reload NetworkManager
 
 cd ../..
 rm -rf rtl8189ES_linux
