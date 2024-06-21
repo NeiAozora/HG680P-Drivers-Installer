@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo Begin patching the dtb & u-boot file
+echo "Begin patching the dtb & u-boot file"
 sudo cp meson-gxl-s905x-p212.dtb /boot/dtb/amlogic/
 sudo cp u-boot-p212.bin /boot/
 
