@@ -34,8 +34,18 @@ aarch64-linux-gnu-gcc -o fixdep fixdep.c
 cd ../..
 
 cd scripts/mod
-aarch64-linux-gnu-gcc -c modpost.c -o modpost
+aarch64-linux-gnu-gcc -c file2alias.c -o file2alias.o
+aarch64-linux-gnu-gcc -c modpost.c -o modpost.o
+aarch64-linux-gnu-gcc -c mk_elfconfig.c -o mk_elfconfig.o
+aarch64-linux-gnu-gcc -c sumversion.c -o sumversion.o
+aarch64-linux-gnu-gcc -c empty.c -o empty.o
 
+aarch64-linux-gnu-gcc -o modpost modpost.o file2alias.o sumversion.o
+aarch64-linux-gnu-gcc -o mk_elfconfig mk_elfconfig.o
+aarch64-linux-gnu-gcc -c empty.c -o empty.o
+
+
+chmod +x modpost
 echo "Begin compiling modules"
 cd ~/HG680P-Drivers-Installer/rtl8189ES_linux
 make -j4 ARCH=arm64 KSRC=/tmp/build-header
