@@ -21,14 +21,14 @@ echo Preparing header enviroments
 
 cd /tmp/build-header
 cd scripts/kconfig
-aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
-aarch64-linux-gnu-gcc -c -o expr.o expr.c
-aarch64-linux-gnu-gcc -c -o conf.o conf.c
-aarch64-linux-gnu-gcc -c -o symbol.o symbol.c
-aarch64-linux-gnu-gcc -c -o expr.o expr.c
-aarch64-linux-gnu-gcc -c -o util.o util.c
-aarch64-linux-gnu-gcc -c -o lexer.lex.o lexer.lex.c
-aarch64-linux-gnu-gcc -c -o menu.o menu.c
+sudo aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
+sudo aarch64-linux-gnu-gcc -c -o expr.o expr.c
+sudo aarch64-linux-gnu-gcc -c -o conf.o conf.c
+sudo aarch64-linux-gnu-gcc -c -o symbol.o symbol.c
+sudo aarch64-linux-gnu-gcc -c -o expr.o expr.c
+sudo aarch64-linux-gnu-gcc -c -o util.o util.c
+sudo aarch64-linux-gnu-gcc -c -o lexer.lex.o lexer.lex.c
+sudo aarch64-linux-gnu-gcc -c -o menu.o menu.c
 
 cd ../..
 
@@ -38,10 +38,10 @@ cd ../..
 
 cd scripts/mod
 
-aarch64-linux-gnu-gcc -c modpost.c -o modpost
+sudo aarch64-linux-gnu-gcc -c modpost.c -o modpost
 
 echo Begin compiling modules
-make -j4 ARCH=arm64 KSRC=/tmp/build-header
+sudo make -j4 ARCH=arm64 KSRC=/tmp/build-header
 
 # Build kernel and modules
 sudo cp 8189fs.ko /usr/lib/modules/$(uname -r)/kernel/drivers/net/wireless/realtek/                                              
