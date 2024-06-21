@@ -21,14 +21,14 @@ echo Preparing header enviroments
 
 cd /tmp/build-header
 cd scripts/kconfig
-sudo aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
-sudo aarch64-linux-gnu-gcc -c -o expr.o expr.c
-sudo aarch64-linux-gnu-gcc -c -o conf.o conf.c
-sudo aarch64-linux-gnu-gcc -c -o symbol.o symbol.c
-sudo aarch64-linux-gnu-gcc -c -o expr.o expr.c
-sudo aarch64-linux-gnu-gcc -c -o util.o util.c
-sudo aarch64-linux-gnu-gcc -c -o lexer.lex.o lexer.lex.c
-sudo aarch64-linux-gnu-gcc -c -o menu.o menu.c
+aarch64-linux-gnu-gcc -c -o confdata.o confdata.c
+aarch64-linux-gnu-gcc -c -o expr.o expr.c
+aarch64-linux-gnu-gcc -c -o conf.o conf.c
+aarch64-linux-gnu-gcc -c -o symbol.o symbol.c
+aarch64-linux-gnu-gcc -c -o expr.o expr.c
+aarch64-linux-gnu-gcc -c -o util.o util.c
+aarch64-linux-gnu-gcc -c -o lexer.lex.o lexer.lex.c
+aarch64-linux-gnu-gcc -c -o menu.o menu.c
 
 cd ../..
 
@@ -38,7 +38,7 @@ cd ../..
 
 cd scripts/mod
 
-sudo aarch64-linux-gnu-gcc -c modpost.c -o modpost
+aarch64-linux-gnu-gcc -c modpost.c -o modpost
 
 echo Begin compiling modules
 cd ~/HG680P-Drivers-Installer/rtl8189ES_linux
